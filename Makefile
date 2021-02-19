@@ -9,13 +9,16 @@ CC = gcc	# compilador
 
 # diretórios
 
-SDIR = src	# arquivos fonte
-ODIR = obj	# arquivos objeto
-IDIR = include	# header (cabeçalhos)
+# arquivos fonte
+SDIR = src
+# arquivos objeto
+ODIR = obj
+# header (cabeçalhos)
+IDIR = include
 
 # flags
 
-CFLAGS = -Wall -ansi -pedantic -I$(IDIR)
+CFLAGS = -Wall -std=gnu99 -pedantic -I$(IDIR)
 LDFLAGS =	# flags requeridas por certas bibliotecas, como <-lm> por <math.h>
 
 # nomes de arquivos

@@ -57,18 +57,18 @@ char *read_line(FILE *f) {
 int main(int argc, char *argv[]) {
     game_data data;
 
-    struct timeval timeout;
+    struct timeval timeout = {2, 0};
 
     while (1)
     {
-        timeout.tv_sec = 2;
-
         if (await_input(&timeout) == 0) {
             puts("timeout");
 
         } else {
             puts(read_line(stdin));
         }
+        
+        timeout.tv_sec = 2;
     }
     
     return EXIT_SUCCESS;
