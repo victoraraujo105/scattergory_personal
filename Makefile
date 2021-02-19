@@ -26,7 +26,7 @@ SRC = $(_SRC:%=$(SDIR)/%)	# prefixando diretorio ao nome dos arquivos fonte <*.c
 _OBJ = $(_SRC:%.c=%.o)	# arquivos objeto, trocando extensão dos arquivos fonte para <.o>
 OBJ = $(_OBJ:%=$(ODIR)/%)	# prefixando diretorio ao nome dos arquivos objeto <*.o>
 
-_INCLUDE =	# arquivos header <*.h>
+_INCLUDE = main.h # arquivos header <*.h>
 INCLUDE = $(_INCLUDE:%=$(IDIR)/%)
 
 
@@ -54,5 +54,5 @@ $(ODIR):	# regra que cria diretório dos arquivos objeto, caso não exista
 
 clean:	# regra que apaga arquivos gerados
 	@echo "Deletando arquivos gerados..."
-	@rm -rf $(ODIR) $(TARGET) *~ $(SDIR)/*~ $(IDIR)/*~
+	@rm -rf $(ODIR) $(TARGET) *~
 	@echo "\nArquivos gerados deletados!"
