@@ -38,7 +38,7 @@ char *read_line(FILE *f) {
     int i = 0, s = 128, c;
     char *buffer = malloc(s);
 
-    while ((c = fgetc(stdin)) != EOF && c != (int) '\n') {
+    while ((c = fgetc(f)) != EOF && c != (int) '\n') {
         
         if (i == s - 1) {
             s += 128;
@@ -54,22 +54,39 @@ char *read_line(FILE *f) {
     return buffer;
 }
 
+/*
+ *  Tenta receber inteiro em [min, max] dentro do intervalo de tempo estabelecido.
+ */
+
+long long get_int(long long min, long long max, struct timeval *timeout) {
+        int input_status;
+        long long n;
+
+        while ((input_status = await_input(timeout)) > 0) {
+            sscanf(read_line(stdin), "%lld", &n);
+            if (min <= n && n <= max) return n;
+            else {
+                fputs("\nInteiro fora do intervalo esperado!\n\nDigite valor ", stdout);
+                
+                if (max == LLONG_MAX) printf("superior a %lld: ", min);
+                else if (min == LLONG_MIN) printf("inferior a %lld: ", max);
+                else printf("em [%lld, %lld]: ", min, max);
+                fflush(stdout);
+            }
+        }
+
+        return input_status;
+}
+
 int main(int argc, char *argv[]) {
     game_data data;
 
-    struct timeval timeout = {2, 0};
+    fputs("Insira o número de jogadores (entre 2 e 10): ", stdout);
+    fflush(stdout);
 
-    while (1)
-    {
-        if (await_input(&timeout) == 0) {
-            puts("timeout");
+    data.number_of_players = (int) get_int(2, 10, NULL);
 
-        } else {
-            puts(read_line(stdin));
-        }
-        
-        timeout.tv_sec = 2;
-    }
-    
+    printf("Número de jogadores: %d\n", data.number_of_players);
+
     return EXIT_SUCCESS;
 }
