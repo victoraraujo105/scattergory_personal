@@ -41,19 +41,19 @@ INCLUDE = $(_INCLUDE:%=$(IDIR)/%)
 all: $(TARGET)	# regra principal, garante a existência dos executáveis
 
 $(TARGET): $(OBJ)	# regra que liga arquivos objeto
-	@echo "\n\nLigando arquivos objeto $(OBJ:%=<%>)..."
+	@echo "Ligando arquivos objeto $(OBJ:%=<%>)...\n"
 	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "\nCompilado! digite <./$@> para executar."
+	@echo "Compilado! digite <./$@> para executar."
 
 $(ODIR)/%.o: $(SDIR)/%.c $(INCLUDE) $(ODIR)	# regra que compila arquivos objeto
-	@echo "\n\nGerando <$@>..."
+	@echo "Gerando <$@>..."
 	@$(CC) -c -o $@ $< $(CFLAGS)
-	@echo "\nArquivo <$@> gerado!"
+	@echo "\nArquivo <$@> gerado!\n\n"
 
 $(ODIR):	# regra que cria diretório dos arquivos objeto, caso não exista
 	@echo "Criando diretório <./obj>..."
 	@mkdir -p $@
-	@echo "\nDiretório <.obj> criado!"
+	@echo "\nDiretório <.obj> criado!\n\n"
 
 clean:	# regra que apaga arquivos gerados
 	@echo "Deletando arquivos gerados..."
